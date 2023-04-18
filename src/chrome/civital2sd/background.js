@@ -15,7 +15,7 @@ function getValue(callback) {
   input.focus();
   document.execCommand('Paste');
   setTimeout(() => {
-    var value = input.value.trim();
+    var value = input.value;
     callback(value);
     document.body.removeChild(input);
   }, 1000);

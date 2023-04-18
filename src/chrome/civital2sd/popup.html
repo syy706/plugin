@@ -1,4 +1,22 @@
 <!DOCTYPE html>
+<style type="text/css">
+.wrap{
+  padding:24px;
+  display: flex;
+  width:240px;
+
+}
+button {
+  height:48x;
+  width:120px;
+  padding:8px;
+  border:1px solid #ddd;
+  background: rgb(20, 110, 226);
+  color:white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -6,7 +24,9 @@
     <script src="popup.js"></script>
   </head>
   <body>
-    <button id="copy">复制propmt</button>
-    <button id="insert">粘贴复制propmt</button>
+    <div class="wrap">
+      <button id="copy" style="margin-right: 12px;">复制propmt</button>
+      <button id="insert">粘贴propmt</button>
+    </div>
   </body>
 </html>
