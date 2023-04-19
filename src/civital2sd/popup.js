@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var copyBtn = document.getElementById('copy');
+  // var copyBtn = document.getElementById('copy');
   var insertBtn = document.getElementById('insert');
 
-  // 点击Copy按钮，触发当前页id为qwe的按钮的点击事件
-  copyBtn.addEventListener('click', function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.executeScript(tabs[0].id, {
-        code: "document.getElementById('qwe').click();"
-      });
-    });
-  });
+  // // 点击Copy按钮，触发当前页id为qwe的按钮的点击事件
+  // copyBtn.addEventListener('click', function () {
+  //   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  //     chrome.tabs.executeScript(tabs[0].id, {
+  //       code: "document.getElementsByClassName('mantine-ScrollArea-root')[2].getElementsByClassName('mantine-Button-root')[3].click();"
+  //     });
+  //   });
+  // });
   insertBtn.addEventListener('click', getClipboardText);
 });
 
@@ -26,18 +26,17 @@ function getClipboardText() {
        
 
         const list = ["Negative prompt:","Size:",", Seed:",", Model",", Steps:",", Sampler:",", CFG scale:",", Model hash:",", Face restoration:"]
-        var a = clipboardText;
+        var a = tranformStr(clipboardText);
         const results = []
         list.map((item)=>{
           const text = a.split(item)[0];
+          
           results.push(text)
           a = a.substring(a.indexOf(item) + item.length, a.length);
         })
 
-        
         const [prompt, navi,size,seed, model, step, sampler, cfg, hash] = results;
         const [x, y ] = size.split("x");
-
         const fn = [ `document.getElementById("txt2img_prompt").querySelector("textarea").value = ${JSON.stringify(prompt)}`,
         `document.getElementById("txt2img_neg_prompt").querySelector("textarea").value = ${JSON.stringify(navi)}`,
         `document.getElementById("txt2img_width").querySelector("input").value = ${JSON.stringify(x.trim())}`,
@@ -55,3 +54,6 @@ function getClipboardText() {
   );
 }
 
+function tranformStr(str){
+  return str.replace(/\n/g, '').replace(/['"]/g, '');
+}
